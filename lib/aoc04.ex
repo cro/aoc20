@@ -79,7 +79,7 @@ defmodule Aoc04 do
       Map.keys(passport) == ["byr","ecl","eyr","hcl","hgt","iyr","pid"])
     and (passport["byr"] |> String.to_integer >= 1920 and passport["byr"] |> String.to_integer <= 2002)
     and (passport["iyr"] |> String.to_integer >= 2010 and passport["iyr"] |> String.to_integer <= 2020)
-    and (passport["eyr"] |> String.to_integer >= 2020 and passport["iyr"] |> String.to_integer <= 2030)
+    and (passport["eyr"] |> String.to_integer >= 2020 and passport["eyr"] |> String.to_integer <= 2030)
     and (height_test(passport["hgt"])) and (hair_color_test(passport["hcl"])) and (eye_color_test(passport["ecl"]))
     and (passport_id_test(passport["pid"])) and (country_id_test(passport["cid"]))
   end
