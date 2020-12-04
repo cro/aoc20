@@ -49,6 +49,7 @@ defmodule Aoc03 do
     rescue
       _e in MatchError -> "@"
     end
+    cell
   end
 
   def schuss(row, col, rowdelta, coldelta, acc) do
