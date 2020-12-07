@@ -26,12 +26,15 @@ defmodule Aoc0202 do
 
   def decode_password(passline) do
     [indices, letter, password] = String.split(passline, " ")
-    [startidx, endidx] = Enum.map(String.split(indices, "-"), fn x -> x |> String.to_integer end)
-    letter = String.first(letter)
-    passarray = password |> String.graphemes
 
-    first_bool = Enum.at(passarray, startidx-1) == letter
-    second_bool = Enum.at(passarray, endidx-1) == letter
+    [startidx, endidx] =
+      Enum.map(String.split(indices, "-"), fn x -> x |> String.to_integer() end)
+
+    letter = String.first(letter)
+    passarray = password |> String.graphemes()
+
+    first_bool = Enum.at(passarray, startidx - 1) == letter
+    second_bool = Enum.at(passarray, endidx - 1) == letter
 
     (first_bool and not second_bool) or (not first_bool and second_bool)
   end
@@ -42,13 +45,12 @@ defmodule Aoc0202 do
 
   def parse_list([head | tail], acc) do
     pass = decode_password(head)
+
     if pass do
       IO.puts(head)
-      _res = parse_list(tail, acc+1)
+      _res = parse_list(tail, acc + 1)
     else
       _res = parse_list(tail, acc)
     end
-
   end
-
 end

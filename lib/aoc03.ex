@@ -39,35 +39,41 @@ defmodule Aoc03 do
   end
 
   def get_wraparound_coordinate(rownum, colnum) do
-    cell = try do
-      [{_rowkey, row}] = :ets.lookup(:landscape, rownum)
+    cell =
+      try do
+        [{_rowkey, row}] = :ets.lookup(:landscape, rownum)
 
-      cond do
-        colnum >= length(row) -> Enum.at(row, rem(colnum, length(row)))
-        true -> Enum.at(row, colnum)
+        cond do
+          colnum >= length(row) -> Enum.at(row, rem(colnum, length(row)))
+          true -> Enum.at(row, colnum)
+        end
+      rescue
+        _e in MatchError -> "@"
       end
-    rescue
-      _e in MatchError -> "@"
-    end
+
     cell
   end
 
   def schuss(row, col, rowdelta, coldelta, acc) do
     tree = get_wraparound_coordinate(row, col)
+
     cond do
       tree == "#" ->
-        schuss(row+rowdelta, col+coldelta, rowdelta, coldelta, acc+1)
+        schuss(row + rowdelta, col + coldelta, rowdelta, coldelta, acc + 1)
+
       tree == "." ->
-        schuss(row+rowdelta, col+coldelta, rowdelta, coldelta, acc)
+        schuss(row + rowdelta, col + coldelta, rowdelta, coldelta, acc)
+
       tree == "@" ->
         acc
     end
   end
 
   def main do
-    {:ok, _rows} = read_file("day03.txt")
-    |> split_file
-    |> create_table
+    {:ok, _rows} =
+      read_file("day03.txt")
+      |> split_file
+      |> create_table
 
     s1 = schuss(0, 0, 1, 1, 0)
     s2 = schuss(0, 0, 1, 3, 0)
@@ -76,8 +82,5 @@ defmodule Aoc03 do
     s5 = schuss(0, 0, 2, 1, 0)
 
     s1 * s2 * s3 * s4 * s5
-
   end
-
-
 end

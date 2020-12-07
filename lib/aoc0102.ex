@@ -20,7 +20,7 @@ defmodule Aoc0102 do
   def parse_file(ftext) do
     ftext
     |> String.split("\n", trim: true)
-    |> Enum.map(fn x -> x |> String.to_integer end)
+    |> Enum.map(fn x -> x |> String.to_integer() end)
   end
 
   def compare_list([], acc1, acc2) do
@@ -37,7 +37,6 @@ defmodule Aoc0102 do
     else
       compare_list(tail, acc1, acc2)
     end
-
   end
 
   def compare_list1([], acc1) do
@@ -59,6 +58,5 @@ defmodule Aoc0102 do
 
     compare_list1(rest1, acc1)
     break_list(rest1)
-
   end
 end
